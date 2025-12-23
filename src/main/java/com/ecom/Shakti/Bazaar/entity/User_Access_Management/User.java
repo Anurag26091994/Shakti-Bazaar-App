@@ -14,6 +14,7 @@ public class User {
     private Long userId;
 
     private String userName;
+    private String password;
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
