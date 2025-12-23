@@ -13,6 +13,8 @@ public class User {
     @Id
     private Long userId;
 
+    private String userName;
+
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
 }
