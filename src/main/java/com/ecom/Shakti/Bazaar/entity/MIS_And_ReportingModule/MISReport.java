@@ -15,7 +15,7 @@ public class MISReport {
     private Long misId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "federation_id", nullable = false)
+    @JoinColumn(name = "federation_id", nullable = false)
     private Federation federationId; // FK reference to shg_management
 
     @Enumerated(EnumType.STRING)
