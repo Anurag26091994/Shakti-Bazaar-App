@@ -1,19 +1,29 @@
 package com.ecom.Shakti.Bazaar.serviceimpl.User_Access_Management;
 
 import com.ecom.Shakti.Bazaar.Enum.User_Access_Management.EventType;
+import com.ecom.Shakti.Bazaar.exception.BusinessException;
 import com.ecom.Shakti.Bazaar.service.User_Access_Management.UserService;
 import com.ecom.Shakti.Bazaar.util.FormLogger;
+import com.ecom.Shakti.Bazaar.util.GenericEventHandler;
 import org.springframework.stereotype.Service;
 import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.node.ObjectNode;
 
 @Service
 public class EventService {
 
-    private final UserService userService;
 
-    public EventService(UserService userService) {
-        this.userService = userService;
+
+    //    private final UserService userService;
+    private final GenericEventHandler genericEventHandler;
+    private final ObjectMapper objectMapper;
+
+    public EventService(GenericEventHandler genericEventHandler, ObjectMapper objectMapper) {
+        this.genericEventHandler = genericEventHandler;
+        this.objectMapper = objectMapper;
     }
+
 
     public String processEvent(String eventName, EventType eventType,
                                JsonNode data, Boolean flag) {
@@ -23,37 +33,19 @@ public class EventService {
         try {
             if (flag) {
                 FormLogger.info("EventService: Processing event as flag is true.");
-                if (eventType.equals(EventType.USER)) {
+                if (!eventType.toString().isBlank()) {
                     FormLogger.info("EventService: Handling USER event: " + eventName);
-                    switch (eventName.toUpperCase()) {
-                        case "CREATEUSER":
-                            FormLogger.info("EventService: Creating user with event name: " + eventName +
-                                    " and data: " + data.toString());
-                            response = userService.createUser(data);
-                            FormLogger.info("EventService: User created with response: " + response);
-                            break;
-                        case "GETUSERINFO":
-                            FormLogger.info("EventService: Getting user info with event name: " + eventName +
-                                    " and data: " + data.toString());
-                            response = userService.getUserInfo(data);
-                            FormLogger.info("EventService: Retrieved user info with response: " + response);
-                            break;
-                        case "GETUSERDETAILSBYEMAIL":
-                            FormLogger.info("EventService: Getting user details by email with event name: " + eventName +
-                                    " and data: " + data.toString());
-                            response = userService.getUserDetailsByEmail(data);
-                            FormLogger.info("EventService: Retrieved user details by email with response: " + response);
-                            break;
-                        case "DELETEUSER":
-                            FormLogger.info("EventService: Deleting user with event name: " + eventName +
-                                    " and data: " + data.toString());
-                            response = userService.deleteUser(data);
-                            FormLogger.info("EventService: User deleted with response: " + response);
-                            break;
-                        default:
-                            FormLogger.warn("EventService: Unsupported USER event name: " + eventName);
-                            return "Unsupported USER event name: " + eventName;
-                    }
+
+                    //  Build FULL event JSON
+                    ObjectNode fullEvent = objectMapper.createObjectNode();
+                    fullEvent.put("eventType", eventType.name());
+                    fullEvent.put("eventName", eventName);
+                    fullEvent.set("data", data);
+
+//                  response= String.valueOf(genericEventHandler.handleJson(fullEvent,objectMapper));
+                    response=genericEventHandler.handle(fullEvent);
+
+
                     FormLogger.info("EventService: Response from process event case: " + eventName);
                     return response;
                 }
@@ -69,9 +61,13 @@ public class EventService {
             }
             FormLogger.info("EventService: Final response from processEvent: " + response);
             return response;
-        } catch (Exception e) {
-            FormLogger.error("EventService: Error in processEvent - " + e.getMessage());
-            return "Error processing event: " + e.getMessage();
+        }
+        catch (BusinessException e) {
+            FormLogger.warn("Business error: " + e.getMessage());
+            return e.getMessage(); //  show actual message
+        }catch (Exception e) {
+            FormLogger.error("EventService: Error in processEvent - " + e);
+            return "EventService :Error processing event: " +e.getMessage();
         }
     }
 }
