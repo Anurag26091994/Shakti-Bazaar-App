@@ -20,6 +20,7 @@ public class EventController {
         FormLogger.info("EventController: triggerEvent called with eventName: " + data.getEventName() +
                 ", eventType: " + data.getEventType() + ", flag: " + data.getFlag());
         try {
+
             String response = eventService.processEvent(data.getEventName(), data.getEventType(),
                     data.getData(), data.getFlag());
             return ResponseEntity.ok(response);
