@@ -1,6 +1,6 @@
-package com.ecom.Shakti.Bazaar.entity.Order_Payment_And_DeliveryModule;
+package com.ecom.Shakti.Bazaar.entity.Order_Payment_And_Delivery;
 
-import com.ecom.Shakti.Bazaar.Enum.Order_Payment_And_DeliveryModule.OrderStatus;
+import com.ecom.Shakti.Bazaar.Enum.Order_Payment_And_Delivery.OrderStatus;
 import com.ecom.Shakti.Bazaar.entity.User_Access_Management.User;
 import jakarta.persistence.*;
 import lombok.Getter;

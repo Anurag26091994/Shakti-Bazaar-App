@@ -2,7 +2,7 @@ package com.ecom.Shakti.Bazaar.entity.ProductAndInventoryManagement;
 
 
 import com.ecom.Shakti.Bazaar.Enum.ProductAndInventoryManagement.ProductStatus;
-import com.ecom.Shakti.Bazaar.entity.Order_Payment_And_DeliveryModule.OrderItem;
+import com.ecom.Shakti.Bazaar.entity.Order_Payment_And_Delivery.OrderItem;
 import com.ecom.Shakti.Bazaar.entity.SHG_Management.SHG;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;

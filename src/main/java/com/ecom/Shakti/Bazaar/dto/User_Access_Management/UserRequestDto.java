@@ -1,6 +1,6 @@
 package com.ecom.Shakti.Bazaar.dto.User_Access_Management;
 
-import com.ecom.Shakti.Bazaar.entity.Order_Payment_And_DeliveryModule.Order;
+import com.ecom.Shakti.Bazaar.entity.Order_Payment_And_Delivery.Order;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.Getter;

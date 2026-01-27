@@ -1,4 +1,4 @@
-package com.ecom.Shakti.Bazaar.entity.Order_Payment_And_DeliveryModule;
+package com.ecom.Shakti.Bazaar.entity.Order_Payment_And_Delivery;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,12 +1,10 @@
-package com.ecom.Shakti.Bazaar.entity.Order_Payment_And_DeliveryModule;
+package com.ecom.Shakti.Bazaar.entity.Order_Payment_And_Delivery;
 
 import com.ecom.Shakti.Bazaar.entity.ProductAndInventoryManagement.Product;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Entity
 @Table(name = "order_items")
