@@ -36,10 +36,10 @@ public class District {
     @Column(name = "region_code", nullable = false, unique = true)
     private String regionCode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+   /* @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "federation_id",
             nullable = false
     )
-    private Federation federation;
+    private Federation federation;*/
 }
