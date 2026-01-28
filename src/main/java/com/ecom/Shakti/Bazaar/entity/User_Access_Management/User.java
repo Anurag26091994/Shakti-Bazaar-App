@@ -1,6 +1,6 @@
 package com.ecom.Shakti.Bazaar.entity.User_Access_Management;
 
-import com.ecom.Shakti.Bazaar.entity.Order_Payment_And_DeliveryModule.Order;
+import com.ecom.Shakti.Bazaar.entity.Order_Payment_And_Delivery.Order;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
