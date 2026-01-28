@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(
+@Table
+        (
         name = "federation",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "email"),
@@ -32,9 +33,12 @@ public class Federation {
     private String name;
 
     // FK reference (simple approach)
-    @NotNull(message = "District ID is required")
-    @Column(name = "district_id", nullable = false)
-    private Long districtId;
+   // @NotNull(message = "District ID is required")
+   // @Column(name = "district_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "district_id", nullable = false)
+    private District district;
+
 
     @NotBlank(message = "Contact person is required")
     @Column(name = "contact_person")
@@ -59,16 +63,18 @@ public class Federation {
     @Column(name = "created_date", updatable = false)
     private LocalDateTime createdDate;
 
-    @OneToMany(mappedBy = "federation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //@OneToMany(mappedBy = "federation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "federation", fetch = FetchType.LAZY)
     private List<SHG> shgs;
 
+    /*
     @OneToMany(
             mappedBy = "federation",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     private List<District> districts;
-
+    */
 
 
     @PrePersist
