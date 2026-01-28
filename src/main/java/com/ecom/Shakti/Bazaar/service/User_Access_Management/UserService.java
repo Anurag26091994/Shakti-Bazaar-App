@@ -10,4 +10,6 @@ public interface UserService {
     String getUserDetailsByEmail(JsonNode data);
 
     String deleteUser(JsonNode data);
+
+    String updateUser(JsonNode payload);
 }
